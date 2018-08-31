@@ -35,7 +35,7 @@ FROM gizmotronic/ccextractor
 
 RUN apk update \
  && apk upgrade \
- && apk add --update ffmpeg
+ && apk add --update bash ffmpeg
 
 COPY --from=0 /build/comskip/comskip /usr/local/bin
 
