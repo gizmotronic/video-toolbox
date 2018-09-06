@@ -43,9 +43,7 @@ RUN git clone https://github.com/mkrufky/libdvbtee.git \
  && ( \
         cd libdvbtee \
         && autoreconf --install \
-        && ./configure \
-        && ./configure --disable-shared --enable-static \
-        && make \
+        && ./configure --disable-shared --enable-static && make \
     )
 
 FROM gizmotronic/ccextractor
