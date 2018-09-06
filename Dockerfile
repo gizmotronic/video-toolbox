@@ -31,6 +31,23 @@ RUN git clone https://github.com/erikkaashoek/Comskip.git comskip \
         && make \
     )
 
+RUN git clone https://github.com/gizmotronic/libdvbpsi.git \
+ && ( \
+        cd libdvbpsi \
+        && git checkout fix-automake-version \
+        && autoreconf --install \
+        && ./configure --disable-shared --enable-static && make && make install \
+    )
+
+RUN git clone https://github.com/mkrufky/libdvbtee.git \
+ && ( \
+        cd libdvbtee \
+        && autoreconf --install \
+        && ./configure \
+        && ./configure --disable-shared --enable-static \
+        && make \
+    )
+
 FROM gizmotronic/ccextractor
 
 RUN apk update \
@@ -38,5 +55,6 @@ RUN apk update \
  && apk add --update bash ffmpeg
 
 COPY --from=0 /build/comskip/comskip /usr/local/bin
+COPY --from=0 /build/libdvbtee/dvbtee/dvbtee /usr/local/bin
 
 ENTRYPOINT
